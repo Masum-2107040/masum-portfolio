@@ -1,0 +1,20 @@
+@import "highlight.js/styles/github-dark.css";
+@tailwind base;@tailwind components;@tailwind utilities;
+body{background:#080B0A;color:#F0F5F1;font-family:Inter,system-ui,sans-serif;background-image:radial-gradient(#26372C55 1px,transparent 1px);background-size:24px 24px}
+:focus-visible{outline:2px solid #4ADE80;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.md{color:#A7B4AA;line-height:1.75;overflow-wrap:anywhere}
+.md>*+*{margin-top:1rem}
+.md h1,.md h2,.md h3,.md h4{color:#F0F5F1;font-weight:600;margin-top:2rem}
+.md h1{font-size:1.75rem}.md h2{font-size:1.4rem}.md h3{font-size:1.15rem}
+.md a{color:#4ADE80;text-decoration:underline;text-underline-offset:2px}
+.md ul{list-style:disc;padding-left:1.5rem}.md ol{list-style:decimal;padding-left:1.5rem}
+.md blockquote{border-left:3px solid #26372C;padding-left:1rem;color:#86A98F}
+.md code{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.9em;background:#111714;border:1px solid #26372C;border-radius:4px;padding:.1em .35em}
+.md pre{overflow-x:auto;border:1px solid #26372C;border-radius:6px;background:#0d1117;padding:1rem}
+.md pre code{background:none;border:0;padding:0}
+.md img{max-width:100%;border-radius:6px}
+.md table{display:block;overflow-x:auto;border-collapse:collapse}
+.md th,.md td{border:1px solid #26372C;padding:.4rem .75rem}
+.md hr{border-color:#26372C}
