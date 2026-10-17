@@ -3,19 +3,28 @@
 import { useActionState } from "react";
 import { login } from "./actions";
 
-export default function LoginForm() {
+export default function LoginForm({ hasCloudAuth }: { hasCloudAuth?: boolean }) {
   const [state, action, pending] = useActionState(login, {});
   const inputClass =
     "mt-1.5 w-full rounded-lg border border-line bg-card/80 px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-term focus:outline-none transition-colors font-mono";
 
   return (
     <form action={action} className="mt-6 space-y-4">
-      <div className="rounded-lg border border-term/30 bg-term/10 p-3 text-xs text-term font-mono">
-        <p className="font-semibold">⚡ Local Admin Mode Active</p>
-        <p className="mt-0.5 text-muted">
-          Default Password: <code className="text-ink font-bold">admin</code>
-        </p>
-      </div>
+      {hasCloudAuth ? (
+        <div className="rounded-lg border border-term/30 bg-term/10 p-3 text-xs text-term font-mono">
+          <p className="font-semibold">☁️ Supabase Cloud Database Connected</p>
+          <p className="mt-0.5 text-muted">
+            Sign in with your admin credentials (<code className="text-ink">mollamasum764@gmail.com</code>).
+          </p>
+        </div>
+      ) : (
+        <div className="rounded-lg border border-term/30 bg-term/10 p-3 text-xs text-term font-mono">
+          <p className="font-semibold">⚡ Local Admin Mode Active</p>
+          <p className="mt-0.5 text-muted">
+            Default Password: <code className="text-ink font-bold">admin</code>
+          </p>
+        </div>
+      )}
 
       <div>
         <label htmlFor="email" className="text-xs font-mono text-ink2">
@@ -41,8 +50,8 @@ export default function LoginForm() {
           id="password"
           name="password"
           type="password"
-          defaultValue="admin"
           required
+          placeholder="Enter your admin password"
           autoComplete="current-password"
           maxLength={200}
           className={inputClass}
@@ -60,7 +69,7 @@ export default function LoginForm() {
         disabled={pending}
         className="w-full rounded-lg bg-term px-4 py-2.5 font-mono text-xs font-bold text-bg hover:bg-term/90 disabled:opacity-50 transition-all shadow-md"
       >
-        {pending ? "Authenticating…" : "Sign In to Admin Panel"}
+        {pending ? "Authenticating with Supabase…" : "Sign In to Admin Panel"}
       </button>
     </form>
   );
