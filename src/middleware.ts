@@ -1,14 +1,36 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// First line of defence for /admin/*: requires a valid Supabase session and refreshes its cookies.
-// This is NOT the authorization boundary. Admin pages and every server action re-check is_admin() (see requireAdmin).
+// First line of defence for /admin/*
 export async function middleware(req: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL, key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const isLogin = req.nextUrl.pathname === "/admin/login";
   const toLogin = () => NextResponse.redirect(new URL("/admin/login", req.url));
+  const toAdmin = () => NextResponse.redirect(new URL("/admin", req.url));
+
   let res = NextResponse.next({ request: req });
-  if (!url || !key) return isLogin ? res : toLogin();
+
+  // 1. Local Admin Mode (when Supabase is unconfigured)
+  if (!url || !key) {
+    const localSession = req.cookies.get("local_admin_session")?.value;
+    const isAuthed = localSession === "authenticated";
+
+    if (isLogin) {
+      if (isAuthed) return toAdmin();
+      return res;
+    }
+
+    if (!isAuthed) {
+      return toLogin();
+    }
+
+    res.headers.set("Cache-Control", "no-store");
+    res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
+
+  // 2. Cloud Supabase Mode
   const supabase = createServerClient(url, key, {
     cookies: {
       getAll: () => req.cookies.getAll(),
@@ -19,10 +41,21 @@ export async function middleware(req: NextRequest) {
       },
     },
   });
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user && !isLogin) return toLogin();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (isLogin) {
+    if (user) return toAdmin();
+    return res;
+  }
+
+  if (!user) return toLogin();
+
   res.headers.set("Cache-Control", "no-store");
   res.headers.set("X-Robots-Tag", "noindex, nofollow");
   return res;
 }
+
 export const config = { matcher: ["/admin/:path*"] };

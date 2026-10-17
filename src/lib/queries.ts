@@ -1,4 +1,6 @@
 import { createPublicClient } from "@/lib/supabase/public";
+import { hasSupabase } from "@/lib/env";
+import { getLocalDbClient } from "@/lib/db/local-db";
 import {
   FALLBACK_PROFILE,
   FALLBACK_SKILLS,
@@ -9,13 +11,13 @@ import {
   FALLBACK_POSTS,
 } from "@/lib/data/portfolio-data";
 
-// Public data access. Uses the anon client, so RLS guarantees only published rows are returned.
-// When Supabase is unconfigured, empty, or a query fails, returns curated fallback CV data.
+// Public data access. Queries either local persistent DB or Supabase cloud.
+// When unconfigured, empty, or on query failure, falls back to default CV dataset.
 async function run<T>(
-  fn: (c: NonNullable<ReturnType<typeof createPublicClient>>) => PromiseLike<{ data: T | null; error: unknown }>,
+  fn: (c: any) => PromiseLike<{ data: T | null; error: unknown }>,
   fallback: T
 ): Promise<T> {
-  const c = createPublicClient();
+  const c = hasSupabase() ? createPublicClient() : getLocalDbClient();
   if (!c) return fallback;
   try {
     const { data, error } = await fn(c);
@@ -32,56 +34,83 @@ async function run<T>(
 type Row = Record<string, any>;
 
 export const getProfile = () =>
-  run<Row | null>(c => c.from("profiles").select("*").limit(1).maybeSingle(), FALLBACK_PROFILE);
+  run<Row | null>((c) => c.from("profiles").select("*").limit(1).maybeSingle(), FALLBACK_PROFILE);
 
 export const listSkills = () =>
-  run<Row[]>(c => c.from("skills").select("*").order("sort_order"), FALLBACK_SKILLS);
+  run<Row[]>(
+    (c) => c.from("skills").select("*").eq("is_published", true).order("sort_order"),
+    FALLBACK_SKILLS
+  );
 
 export const listProjects = () =>
   run<Row[]>(
-    c => c.from("projects").select("*").order("is_featured", { ascending: false }).order("created_at", { ascending: false }),
+    (c) =>
+      c
+        .from("projects")
+        .select("*")
+        .eq("is_published", true)
+        .order("is_featured", { ascending: false })
+        .order("created_at", { ascending: false }),
     FALLBACK_PROJECTS
   );
 
 export const getProject = async (slug: string) => {
-  const fallback = FALLBACK_PROJECTS.find(p => p.slug === slug) ?? null;
-  return run<Row | null>(c => c.from("projects").select("*").eq("slug", slug).maybeSingle(), fallback);
+  const fallback = FALLBACK_PROJECTS.find((p) => p.slug === slug) ?? null;
+  return run<Row | null>((c) => c.from("projects").select("*").eq("slug", slug).maybeSingle(), fallback);
 };
 
 export const listResearch = () =>
   run<Row[]>(
-    c => c.from("research_papers").select("*").order("is_featured", { ascending: false }).order("created_at", { ascending: false }),
+    (c) =>
+      c
+        .from("research_papers")
+        .select("*")
+        .eq("is_published", true)
+        .order("is_featured", { ascending: false })
+        .order("created_at", { ascending: false }),
     FALLBACK_RESEARCH
   );
 
 export const getResearch = async (slug: string) => {
-  const fallback = FALLBACK_RESEARCH.find(r => r.slug === slug) ?? null;
-  return run<Row | null>(c => c.from("research_papers").select("*").eq("slug", slug).maybeSingle(), fallback);
+  const fallback = FALLBACK_RESEARCH.find((r) => r.slug === slug) ?? null;
+  return run<Row | null>((c) => c.from("research_papers").select("*").eq("slug", slug).maybeSingle(), fallback);
 };
 
 export const listAchievements = () =>
   run<Row[]>(
-    c => c.from("achievements").select("*").order("event_date", { ascending: false, nullsFirst: false }),
+    (c) =>
+      c
+        .from("achievements")
+        .select("*")
+        .eq("is_published", true)
+        .order("event_date", { ascending: false, nullsFirst: false }),
     FALLBACK_ACHIEVEMENTS
   );
 
 export const listCertificates = () =>
   run<Row[]>(
-    c => c.from("certificates").select("*").order("sort_order").order("issue_date", { ascending: false, nullsFirst: false }),
+    (c) =>
+      c
+        .from("certificates")
+        .select("*")
+        .eq("is_published", true)
+        .order("sort_order")
+        .order("issue_date", { ascending: false, nullsFirst: false }),
     FALLBACK_CERTIFICATES
   );
 
 export const listPosts = () =>
   run<Row[]>(
-    c =>
+    (c) =>
       c
         .from("blog_posts")
         .select("id,title,slug,excerpt,tags,published_at,cover_image_path")
+        .eq("status", "published")
         .order("published_at", { ascending: false, nullsFirst: false }),
     FALLBACK_POSTS
   );
 
 export const getPost = async (slug: string) => {
-  const fallback = FALLBACK_POSTS.find(p => p.slug === slug) ?? null;
-  return run<Row | null>(c => c.from("blog_posts").select("*").eq("slug", slug).maybeSingle(), fallback);
+  const fallback = FALLBACK_POSTS.find((p) => p.slug === slug) ?? null;
+  return run<Row | null>((c) => c.from("blog_posts").select("*").eq("slug", slug).maybeSingle(), fallback);
 };

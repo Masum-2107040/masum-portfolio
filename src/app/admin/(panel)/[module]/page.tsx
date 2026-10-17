@@ -23,7 +23,7 @@ export default async function ModulePage({ params }: P) {
     {rows.length === 0 ? <p className="text-ink2">Nothing here yet.</p> : (
       <div className="overflow-x-auto"><table className="w-full text-left text-sm"><thead className="text-muted"><tr>
         {mod.listCols.map(c => <th key={c.key} className="py-2 pr-4 font-normal">{c.label}</th>)}<th className="py-2 pr-4 font-normal">State</th><th /></tr></thead>
-        <tbody>{rows.map(r => (<tr key={r.id} className="border-t border-line">
+        <tbody>{rows.map((r: any) => (<tr key={r.id} className="border-t border-line">
           {mod.listCols.map(c => <td key={c.key} className="py-2 pr-4 text-ink2">{String(r[c.key] ?? "")}</td>)}
           <td className="py-2 pr-4 font-mono text-xs text-muted">{state(r)}</td>
           <td className="flex gap-4 py-2"><Link href={`/admin/${mod.key}/${r.id}`} className="text-term underline">Edit</Link>

@@ -43,7 +43,11 @@ export function buildStoragePath(folder: Folder, ext: string): string {
 }
 
 export function publicAssetUrl(path?: string | null): string | null {
+  if (!path || path.includes("..")) return null;
+  if (path.startsWith("/") || path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
   const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!path || !base || path.includes("..") || path.startsWith("/")) return null;
+  if (!base) return `/${path}`;
   return `${base}/storage/v1/object/public/${BUCKET}/${path.split("/").map(encodeURIComponent).join("/")}`;
 }

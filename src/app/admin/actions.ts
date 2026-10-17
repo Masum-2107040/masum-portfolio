@@ -1,7 +1,9 @@
 "use server";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { z } from "zod";
 import { requireAdmin, createServerSupabase } from "@/lib/supabase/server";
+import { hasSupabase } from "@/lib/env";
 import { getModule } from "@/lib/admin/modules";
 import { readForm } from "@/lib/admin/form";
 import { slugify, uniqueSlug } from "@/lib/utils";
@@ -37,7 +39,7 @@ export async function saveRecord(moduleKey: string, id: string | null, _prev: Fo
     const typed = String(values.slug ?? "").trim();
     const base = slugify(typed || (current?.slug as string | undefined) || String(values[mod.slugFrom] ?? ""));
     const { data: rows } = await supabase.from(mod.table).select("id,slug").like("slug", `${base}%`);
-    const taken = (rows ?? []).filter(r => r.id !== id).map(r => r.slug as string);
+    const taken = (rows ?? []).filter((r: any) => r.id !== id).map((r: any) => r.slug as string);
     if (typed && taken.includes(base)) return { fieldErrors: { slug: ["This slug is already in use."] } };
     values.slug = typed || current?.slug ? base : uniqueSlug(base, taken); // auto slugs get -2, -3 ... on collision
   }
@@ -91,7 +93,11 @@ export async function deleteMessage(id: string): Promise<void> {
 }
 
 export async function logout(): Promise<void> {
-  const supabase = await createServerSupabase();
-  await supabase.auth.signOut();
+  const store = await cookies();
+  store.delete("local_admin_session");
+  if (hasSupabase()) {
+    const supabase = await createServerSupabase();
+    await supabase.auth.signOut();
+  }
   redirect("/admin/login");
 }
