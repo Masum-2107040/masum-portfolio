@@ -118,12 +118,14 @@ export const FALLBACK_PROFILE: ProfileData = {
   phone: "01518403124",
   social_links: {
     LinkedIn: "https://www.linkedin.com/in/masum-molla-6845a72a6/",
+    Medium: "https://medium.com/@mollamasum764",
     Email: "mailto:mollamasum764@gmail.com",
     Phone: "tel:01518403124",
     TryHackMe: "https://tryhackme.com",
-    GitHub: "https://github.com",
+    GitHub: "https://github.com/Masum-2107040",
   },
 };
+
 
 export const FALLBACK_SKILLS: SkillItem[] = [
   // Reconnaissance & OSINT

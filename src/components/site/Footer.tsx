@@ -16,6 +16,15 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center gap-6 text-sm font-medium">
           <a
+            href="https://medium.com/@mollamasum764"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-term hover:text-term/80 font-semibold transition-colors flex items-center gap-1"
+          >
+            <span>Medium Write-ups</span>
+            <span className="text-xs">↗</span>
+          </a>
+          <a
             href="https://www.linkedin.com/in/masum-molla-6845a72a6/"
             target="_blank"
             rel="noopener noreferrer"
@@ -23,6 +32,7 @@ export default function Footer() {
           >
             LinkedIn
           </a>
+
           <a
             href="mailto:mollamasum764@gmail.com"
             className="text-ink2 hover:text-term transition-colors"

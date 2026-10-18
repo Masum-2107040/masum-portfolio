@@ -20,7 +20,41 @@ export default async function Blog() {
         intro="In-depth walkthroughs on offensive tradecraft, Active Directory exploitation chains, API security audits, and agentic AI security research."
       />
 
+      {/* Medium Publications Spotlight */}
+      <section className="relative overflow-hidden rounded-2xl border border-term/40 bg-gradient-to-r from-card via-[#0c1611] to-card p-6 sm:p-8 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="rounded-md bg-term/20 px-2.5 py-1 text-xs font-bold text-term uppercase tracking-wide">
+                Medium Publications
+              </span>
+              <span className="text-xs text-muted">@mollamasum764</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-ink">
+              Follow My Offensive Security Write-ups on Medium
+            </h2>
+            <p className="text-sm sm:text-base text-ink2 max-w-xl leading-relaxed">
+              I regularly publish hands-on CTF writeups, vulnerability discovery methodologies, and offensive lab walkthroughs on Medium.
+            </p>
+          </div>
+          <a
+            href="https://medium.com/@mollamasum764"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-term px-6 py-3 text-sm sm:text-base font-semibold text-bg hover:bg-term/90 transition-all shadow-lg shadow-term/20"
+          >
+            <span>Read on Medium</span>
+            <span className="text-lg">↗</span>
+          </a>
+        </div>
+      </section>
+
       <div className="space-y-6">
+        <div className="flex items-center justify-between border-b border-line/60 pb-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-ink">Articles & Lab Analysis</h2>
+          <span className="text-xs sm:text-sm text-muted">{items.length} Articles</span>
+        </div>
+
         {items.map((p) => (
           <article
             key={p.id}

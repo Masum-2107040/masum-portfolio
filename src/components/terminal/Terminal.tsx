@@ -61,10 +61,12 @@ export default function Terminal() {
             <p><span className="text-term font-mono w-24 inline-block">ctf</span> : Capture The Flag ranks & competitions</p>
             <p><span className="text-term font-mono w-24 inline-block">certs</span> : CNSP, kWAPTA, CPPS, CRTOM credentials</p>
             <p><span className="text-term font-mono w-24 inline-block">education</span> : KUET CSE & academic background</p>
-            <p><span className="text-term font-mono w-24 inline-block">contact</span> : Email, phone, LinkedIn, and social links</p>
+            <p><span className="text-term font-mono w-24 inline-block">writeups</span> : Medium offensive security write-ups</p>
+            <p><span className="text-term font-mono w-24 inline-block">contact</span> : Email, phone, LinkedIn, Medium, and GitHub</p>
             <p><span className="text-term font-mono w-24 inline-block">cv</span> : Open download link for PDF resume</p>
             <p><span className="text-term font-mono w-24 inline-block">clear</span> : Clear terminal output</p>
           </div>
+
         );
         break;
 
@@ -153,11 +155,26 @@ export default function Terminal() {
           <div className="space-y-1 text-ink2">
             <p>Email: <a href="mailto:mollamasum764@gmail.com" className="text-term underline">mollamasum764@gmail.com</a></p>
             <p>Phone: <span className="text-term font-mono">01518403124</span></p>
+            <p>Medium: <a href="https://medium.com/@mollamasum764" target="_blank" rel="noopener noreferrer" className="text-term underline">medium.com/@mollamasum764</a></p>
             <p>LinkedIn: <a href="https://linkedin.com/in/masum-molla-6845a72a6/" target="_blank" rel="noopener noreferrer" className="text-term underline">linkedin.com/in/masum-molla-6845a72a6</a></p>
+            <p>GitHub: <a href="https://github.com/Masum-2107040" target="_blank" rel="noopener noreferrer" className="text-term underline">github.com/Masum-2107040</a></p>
             <p>Location: <span className="text-ink">KUET, Fulbarigate, Khulna, Bangladesh</span></p>
           </div>
         );
         break;
+
+      case "medium":
+      case "writeups":
+      case "blog":
+        out = (
+          <div className="space-y-1.5 text-ink2">
+            <p className="text-term font-medium">Offensive Security Write-ups & Articles:</p>
+            <p>• Medium Profile: <a href="https://medium.com/@mollamasum764" target="_blank" rel="noopener noreferrer" className="text-term underline">https://medium.com/@mollamasum764</a></p>
+            <p>• Blog Walkthroughs: <a href="/blog" className="text-term underline">masummolla.me/blog</a></p>
+          </div>
+        );
+        break;
+
 
       case "cv":
         out = (

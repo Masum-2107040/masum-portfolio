@@ -22,8 +22,9 @@ INSERT INTO public.profiles (
   '/avatar.png',
   '/cv.pdf',
   'mollamasum764@gmail.com',
-  '{"LinkedIn": "https://www.linkedin.com/in/masum-molla-6845a72a6/", "Email": "mailto:mollamasum764@gmail.com", "Phone": "tel:01518403124", "TryHackMe": "https://tryhackme.com", "GitHub": "https://github.com"}'::jsonb
+  '{"LinkedIn": "https://www.linkedin.com/in/masum-molla-6845a72a6/", "Medium": "https://medium.com/@mollamasum764", "Email": "mailto:mollamasum764@gmail.com", "Phone": "tel:01518403124", "TryHackMe": "https://tryhackme.com", "GitHub": "https://github.com/Masum-2107040"}'::jsonb
 ) ON CONFLICT (id) DO UPDATE SET
+
   display_name = EXCLUDED.display_name,
   headline = EXCLUDED.headline,
   biography = EXCLUDED.biography,

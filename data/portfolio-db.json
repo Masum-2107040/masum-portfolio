@@ -13,13 +13,15 @@
       "phone": "01518403124",
       "social_links": {
         "LinkedIn": "https://www.linkedin.com/in/masum-molla-6845a72a6/",
+        "Medium": "https://medium.com/@mollamasum764",
         "Email": "mailto:mollamasum764@gmail.com",
         "Phone": "tel:01518403124",
         "TryHackMe": "https://tryhackme.com",
-        "GitHub": "https://github.com"
+        "GitHub": "https://github.com/Masum-2107040"
       },
-      "updated_at": "2026-10-17T23:55:00.000Z"
+      "updated_at": "2026-10-18T15:52:00.000Z"
     }
+
   ],
   "skills": [
     { "id": "40111111-0000-0000-0000-000000000001", "name": "Nmap", "category": "Reconnaissance", "proficiency_label": "Advanced", "sort_order": 1, "is_published": true },

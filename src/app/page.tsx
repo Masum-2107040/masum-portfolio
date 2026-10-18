@@ -75,6 +75,16 @@ export default async function Home() {
               </Link>
 
               <a
+                href="https://medium.com/@mollamasum764"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-line bg-card px-5 py-3 text-sm sm:text-base font-semibold text-ink2 hover:border-term hover:text-term transition-all"
+              >
+                <span>Medium Write-ups</span>
+                <span>↗</span>
+              </a>
+
+              <a
                 href="https://www.linkedin.com/in/masum-molla-6845a72a6/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -83,6 +93,7 @@ export default async function Home() {
                 LinkedIn Profile
               </a>
             </div>
+
 
             {/* Micro Details Row */}
             <div className="pt-4 flex flex-wrap items-center justify-center md:justify-start gap-6 text-sm text-ink2/90 border-t border-line/50">
