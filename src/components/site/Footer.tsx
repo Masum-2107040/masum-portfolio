@@ -48,11 +48,8 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl px-6 mt-8 pt-6 border-t border-line/40 flex flex-col sm:flex-row gap-2 justify-between text-xs sm:text-sm text-muted">
-        <span>© {new Date().getFullYear()} Md Masum Molla. Built with Next.js & TailwindCSS.</span>
-        <span className="text-term font-medium">KUET, Fulbarigate, Khulna</span>
-      </div>
     </footer>
   );
 }
+
 
