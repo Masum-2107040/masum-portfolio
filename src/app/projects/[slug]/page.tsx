@@ -30,19 +30,19 @@ export default async function ProjectDetail({ params }: P) {
   const cover = publicAssetUrl(p.cover_image_path);
 
   return (
-    <main id="main" className="mx-auto max-w-3xl px-6 py-12 space-y-8">
+    <main id="main" className="mx-auto max-w-3xl px-6 py-12 space-y-10">
       <div>
         <Link
           href="/projects"
-          className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-term transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-muted hover:text-term transition-colors"
         >
           ← Back to Projects
         </Link>
       </div>
 
-      <header className="space-y-3 border-b border-line pb-6">
-        <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted">
-          <span className="rounded bg-term/10 px-2 py-0.5 text-term border border-term/20">
+      <header className="space-y-4 border-b border-line pb-8">
+        <div className="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm text-ink2">
+          <span className="rounded-md bg-term/10 px-2.5 py-1 text-term border border-term/20 font-semibold">
             {p.category}
           </span>
           <span>•</span>
@@ -55,12 +55,12 @@ export default async function ProjectDetail({ params }: P) {
           )}
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink font-mono">
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-ink">
           {p.title}
         </h1>
 
         {p.summary && (
-          <p className="text-base sm:text-lg leading-relaxed text-ink2">
+          <p className="text-lg sm:text-xl leading-relaxed text-ink2">
             {p.summary}
           </p>
         )}
@@ -69,7 +69,7 @@ export default async function ProjectDetail({ params }: P) {
       </header>
 
       {cover && (
-        <div className="overflow-hidden rounded-xl border border-line bg-card">
+        <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-lg">
           <img
             src={cover}
             alt={`${p.title} cover`}
@@ -81,13 +81,13 @@ export default async function ProjectDetail({ params }: P) {
 
       {/* Description / Markdown Body */}
       {p.description && (
-        <section className="rounded-xl border border-line bg-card p-6 sm:p-8">
+        <section className="rounded-2xl border border-line bg-card p-6 sm:p-10 shadow-sm">
           <Markdown source={p.description} />
         </section>
       )}
 
       {/* Links Footer */}
-      <footer className="flex flex-wrap items-center gap-4 pt-4 border-t border-line/60">
+      <footer className="flex flex-wrap items-center gap-6 pt-4 border-t border-line/60">
         {p.repository_url && <ExtLink href={p.repository_url}>GitHub Repository ↗</ExtLink>}
         {p.demo_url && <ExtLink href={p.demo_url}>Live Demo ↗</ExtLink>}
         {p.documentation_url && <ExtLink href={p.documentation_url}>Documentation ↗</ExtLink>}
@@ -95,3 +95,4 @@ export default async function ProjectDetail({ params }: P) {
     </main>
   );
 }
+

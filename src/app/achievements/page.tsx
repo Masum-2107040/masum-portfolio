@@ -13,37 +13,37 @@ export default async function Achievements() {
   const items = await listAchievements();
 
   return (
-    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-8">
+    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-10">
       <PageHeader
         title="Achievements & CTF Competitions"
         intro="Track record across national and international competitive cybersecurity events, platform rankings, and community leadership."
       />
 
-      <div className="space-y-4">
+      <div className="space-y-6">
         {items.map((a) => (
           <div
             key={a.id}
-            className="rounded-xl border border-line bg-card p-6 hover:border-term/60 transition-all space-y-3"
+            className="rounded-2xl border border-line bg-card p-6 sm:p-7 hover:border-term/60 transition-all space-y-3.5 shadow-sm"
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 {a.rank && (
-                  <span className="rounded-lg bg-term/10 px-2.5 py-1 font-mono text-xs font-bold text-term border border-term/30">
+                  <span className="rounded-lg bg-term/10 px-3 py-1 text-xs sm:text-sm font-bold text-term border border-term/30">
                     {a.rank}
                   </span>
                 )}
-                <span className="rounded bg-black/40 px-2 py-0.5 font-mono text-xs text-muted border border-line">
+                <span className="rounded-md bg-black/40 px-2.5 py-1 text-xs sm:text-sm text-ink2 border border-line">
                   {a.category}
                 </span>
               </div>
-              <span className="font-mono text-xs text-muted">
+              <span className="text-xs sm:text-sm text-muted">
                 {a.event_date ? formatDate(a.event_date) : ""}
               </span>
             </div>
 
             <div>
-              <h2 className="text-lg font-semibold text-ink font-mono">{a.title}</h2>
-              <p className="mt-0.5 text-xs font-mono text-muted">
+              <h2 className="text-lg sm:text-xl font-bold text-ink">{a.title}</h2>
+              <p className="mt-1 text-xs sm:text-sm text-ink2 font-medium">
                 {[a.organization, a.team_name ? `Team: ${a.team_name}` : null]
                   .filter(Boolean)
                   .join(" • ")}
@@ -51,7 +51,7 @@ export default async function Achievements() {
             </div>
 
             {a.description && (
-              <p className="text-xs sm:text-sm leading-relaxed text-ink2">
+              <p className="text-sm sm:text-base leading-relaxed text-ink2">
                 {a.description}
               </p>
             )}
@@ -69,3 +69,4 @@ export default async function Achievements() {
     </main>
   );
 }
+

@@ -13,7 +13,7 @@ export default async function Research() {
   const items = await listResearch();
 
   return (
-    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-8">
+    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-10">
       <PageHeader
         title="Cybersecurity Research & Papers"
         intro="Applied research in multi-agent autonomous penetration testing, LLM execution determinism, and automated vulnerability triage."
@@ -23,30 +23,30 @@ export default async function Research() {
         {items.map((r) => (
           <div
             key={r.id}
-            className="rounded-xl border border-line bg-card p-6 sm:p-8 hover:border-term/70 transition-all group space-y-4"
+            className="rounded-2xl border border-line bg-card p-7 sm:p-9 hover:border-term/70 transition-all group space-y-4 shadow-sm"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-muted">
-              <span className="rounded bg-term/10 px-2.5 py-1 text-term border border-term/20 font-semibold uppercase">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-muted">
+              <span className="rounded-md bg-term/10 px-3 py-1 text-term border border-term/20 font-semibold uppercase">
                 {r.publication_status?.replace(/_/g, " ")}
               </span>
-              <span>{r.research_area}</span>
+              <span className="text-ink2 font-medium">{r.research_area}</span>
             </div>
 
-            <h2 className="text-xl sm:text-2xl font-semibold text-ink group-hover:text-term transition-colors">
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink group-hover:text-term transition-colors">
               <Link href={`/research/${r.slug}`}>{r.title}</Link>
             </h2>
 
-            <p className="text-xs font-mono text-muted">
-              Authors: <span className="text-ink">{r.authors?.join(", ") ?? "Md Masum Molla"}</span> (KUET)
+            <p className="text-sm sm:text-base text-ink2">
+              Authors: <span className="font-semibold text-ink">{r.authors?.join(", ") ?? "Md Masum Molla"}</span> (KUET)
             </p>
 
             {r.abstract && (
-              <p className="text-sm leading-relaxed text-ink2">
+              <p className="text-base sm:text-lg leading-relaxed text-ink2">
                 {r.abstract}
               </p>
             )}
 
-            <div className="pt-2 flex items-center justify-between text-xs font-mono">
+            <div className="pt-3 flex items-center justify-between text-sm sm:text-base">
               <Link
                 href={`/research/${r.slug}`}
                 className="text-term hover:underline font-semibold"
@@ -58,7 +58,7 @@ export default async function Research() {
                   href={r.repository_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted hover:text-ink"
+                  className="text-muted hover:text-ink transition-colors font-medium"
                 >
                   Code Repository ↗
                 </a>
@@ -70,3 +70,4 @@ export default async function Research() {
     </main>
   );
 }
+

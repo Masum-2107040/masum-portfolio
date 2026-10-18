@@ -27,30 +27,30 @@ export default async function Post({ params }: P) {
   if (!p) notFound();
 
   return (
-    <main id="main" className="mx-auto max-w-3xl px-6 py-12 space-y-8">
+    <main id="main" className="mx-auto max-w-3xl px-6 py-12 space-y-10">
       <div>
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-term transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-muted hover:text-term transition-colors"
         >
           ← Back to Blog & Write-ups
         </Link>
       </div>
 
-      <article className="space-y-6">
-        <header className="space-y-3 border-b border-line pb-6">
-          <div className="flex items-center gap-2 font-mono text-xs text-muted">
-            <span className="text-term font-semibold">Security Write-up</span>
+      <article className="space-y-8">
+        <header className="space-y-4 border-b border-line pb-8">
+          <div className="flex items-center gap-2.5 text-xs sm:text-sm text-muted">
+            <span className="text-term font-bold">Security Write-up</span>
             <span>•</span>
             <span>{formatDate(p.published_at)}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-ink font-mono">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-ink">
             {p.title}
           </h1>
 
           {p.excerpt && (
-            <p className="text-base leading-relaxed text-ink2 italic">
+            <p className="text-lg sm:text-xl leading-relaxed text-ink2 italic">
               {p.excerpt}
             </p>
           )}
@@ -58,10 +58,11 @@ export default async function Post({ params }: P) {
           <Tags items={p.tags} />
         </header>
 
-        <div className="rounded-xl border border-line bg-card/60 p-6 sm:p-8">
+        <div className="rounded-2xl border border-line bg-card/60 p-6 sm:p-10 shadow-sm">
           <Markdown source={p.content ?? ""} />
         </div>
       </article>
     </main>
   );
 }
+

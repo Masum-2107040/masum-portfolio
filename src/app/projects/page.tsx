@@ -13,7 +13,7 @@ export default async function Projects() {
   const items = await listProjects();
 
   return (
-    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-8">
+    <main id="main" className="mx-auto max-w-4xl px-6 py-12 space-y-10">
       <PageHeader
         title="Security & Engineering Projects"
         intro="Autonomous offensive frameworks, incident response platforms, and security-aware web applications built with rigorous threat modeling."
@@ -23,28 +23,28 @@ export default async function Projects() {
         {items.map((p) => (
           <div
             key={p.id}
-            className="flex flex-col justify-between rounded-xl border border-line bg-card p-6 hover:border-term/70 transition-all duration-200 group"
+            className="flex flex-col justify-between rounded-2xl border border-line bg-card p-7 hover:border-term/70 transition-all duration-200 group shadow-sm"
           >
             <div>
-              <div className="flex items-center justify-between text-xs font-mono text-muted">
-                <span className="rounded bg-term/10 px-2 py-0.5 text-term border border-term/20">
+              <div className="flex items-center justify-between text-xs sm:text-sm text-muted">
+                <span className="rounded-md bg-term/10 px-2.5 py-1 text-term border border-term/20 font-semibold">
                   {p.category}
                 </span>
                 <span className="capitalize">{p.status?.replace(/_/g, " ")}</span>
               </div>
 
-              <h2 className="mt-4 text-lg font-semibold text-ink group-hover:text-term transition-colors">
+              <h2 className="mt-4 text-xl sm:text-2xl font-bold text-ink group-hover:text-term transition-colors">
                 <Link href={`/projects/${p.slug}`}>{p.title}</Link>
               </h2>
 
-              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-ink2">
+              <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-ink2">
                 {p.summary}
               </p>
             </div>
 
             <div className="mt-6 pt-4 border-t border-line/40">
               <Tags items={p.technologies} />
-              <div className="mt-4 flex items-center justify-between text-xs font-mono">
+              <div className="mt-5 flex items-center justify-between text-sm sm:text-base">
                 <Link
                   href={`/projects/${p.slug}`}
                   className="text-term hover:underline flex items-center gap-1 font-semibold"
@@ -56,7 +56,7 @@ export default async function Projects() {
                     href={p.repository_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted hover:text-ink transition-colors"
+                    className="text-muted hover:text-ink transition-colors font-medium"
                   >
                     GitHub ↗
                   </a>
@@ -69,3 +69,4 @@ export default async function Projects() {
     </main>
   );
 }
+
